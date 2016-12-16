@@ -1,4 +1,3 @@
-
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -14,6 +13,9 @@ class MyWindow extends JFrame {
     
     private JTextField message;
     private JButton b11, b12, b13, b21, b22, b23,b31,b32,b33;
+    private PotentialBoard gameBoard;
+    
+    private String lastPlayed;
     
     private static int buttonPressCount, winCount = 0;
        
@@ -21,9 +23,12 @@ class MyWindow extends JFrame {
     Font messageFont = new Font("Courier New", Font.BOLD, 18);
     
     private  JButton[] buttons = new JButton[9];
+    private BoardPosition[] boardPositions = new BoardPosition[9];
         
     public MyWindow() {
         message = new JTextField("Play Tic Tac Toe: O's Turn!");
+        
+        gameBoard = new PotentialBoard();
         
         Container contentPane = getContentPane();
         contentPane.add(message, "North");
@@ -32,7 +37,18 @@ class MyWindow extends JFrame {
         panel.setLayout(new GridLayout(3, 3)); 
         contentPane.add(panel, "Center");
         
-        buttons[0] = b11 = new JButton(" ");
+        /*--------------------#
+        |     0  |  1  |  2   |
+        |     -------------   |
+        |     3  |  4  |  5   |
+        |     -------------   |
+        |     6  |  7  |  9   |
+        |                     |
+        |    Board Layout for |
+        |    Reference.       |
+        #--------------------*/
+        
+        buttons[0] = new JButton(" ");
         buttons[1] = b12 = new JButton(" ");
         buttons[2] = b13 = new JButton(" ");
         buttons[3] = b21 = new JButton(" ");
@@ -41,9 +57,20 @@ class MyWindow extends JFrame {
         buttons[6] = b31 = new JButton(" ");
         buttons[7] = b32 = new JButton(" ");
         buttons[8] = b33 = new JButton(" ");
+        
+        boardPositions[0] = new BoardPosition(" ",11);
+        boardPositions[1] = new BoardPosition(" ",12);
+        boardPositions[2] = new BoardPosition(" ",13);
+        boardPositions[3] = new BoardPosition(" ",21);
+        boardPositions[4] = new BoardPosition(" ",22);
+        boardPositions[5] = new BoardPosition(" ",23);
+        boardPositions[6] = new BoardPosition(" ",31);
+        boardPositions[7] = new BoardPosition(" ",32);
+        boardPositions[8] = new BoardPosition(" ",33);
                 
         for(int i=0; i<9; i++){
             buttons[i].setFont(buttonFont);
+            //buttons[i].setText("_");
         }
         
         message.setFont(messageFont);
@@ -74,15 +101,30 @@ class ButtonObserver implements ActionListener {
             if (source==buttonClicked){
                 
                 buttonClicked.setText("O");
+                lastPlayed = "O";
                 message.setText("X's Turn!");
-                       
+                     
               
                 buttonClicked.setEnabled(false);
                 
+                //int index;
+                
+                for(int i=0; i<9; i++){
+                    boardPositions[i].setPlayedChar(buttons[i].getText());
+                }
+                
                 buttonPressCount++;
                
+                
+                //runAllGames();
+                for(int i=0; i<9; i++){
+                    
+                    gameBoard.setBoardPiece(boardPositions[i]);
+                    
+                }
+                gameCheck(gameBoard);
                 computerPlay();
-                runAllGames();
+                
                 
                  if(winCount == 0 && buttonPressCount == 9){
                          message.setText("Game Over: DRAW - No winner!!!");
@@ -91,38 +133,35 @@ class ButtonObserver implements ActionListener {
         }
         
         private void computerPlay(){
+
             for (int i=0; i<9; i++){
                 if (buttons[i].isEnabled()){
                     buttons[i].setText("X");
+                    lastPlayed = "X";
                     buttons[i].setEnabled(false);
+                    for(int i2=0; i2<9; i2++){
+                        boardPositions[i2].setPlayedChar(buttons[i2].getText());
+                        gameBoard.setBoardPiece(boardPositions[i]);
+                    }
                     buttonPressCount++;
+                    gameCheck(gameBoard);
                     break;
                 }
             }
         }
         
-        private void runAllGames(){
-            gameCheck(b11, b12, b13);
-            gameCheck(b21, b22, b23);
-            gameCheck(b31, b32, b33);
-            gameCheck(b11, b21, b31);
-            gameCheck(b12, b22, b32);
-            gameCheck(b13, b23, b33);
-            gameCheck(b11, b22, b33);
-            gameCheck(b13, b22, b31);
-        }
-        
-        private void gameCheck(JButton button1, JButton button2, JButton button3) {
-          if(button1.getText().equals(button2.getText()) && button2.getText().equals(button3.getText()) && (!" ".equals(button1.getText()))){
-                           
-                message.setText("Game Over: Winner is " + button1.getText() + "!");
+        private void gameCheck(PotentialBoard pb){
+            if(pb.runWinScenarios()){
+                 message.setText("Game Over: Winner is " +  lastPlayed+  "!");
                 
                 for(int i=0; i<9; i++){
                     buttons[i].setEnabled(false);
                 }
                 
                 winCount++;
-            } 
-        }   
+            }
+        }
+        
+        
     }    
 }
