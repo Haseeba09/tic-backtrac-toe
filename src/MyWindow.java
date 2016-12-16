@@ -73,32 +73,43 @@ class ButtonObserver implements ActionListener {
         private void sourceCheck(Object source, JButton buttonClicked){
             if (source==buttonClicked){
                 
-                if(buttonPressCount % 2 == 0){
-                       buttonClicked.setText("O");
-                       message.setText("X's Turn!");                       
-                }
-                else{
-                    buttonClicked.setText("X");
-                    message.setText("O's Turn!");                    
-                }
-                
+                buttonClicked.setText("O");
+                message.setText("X's Turn!");
+                       
+              
                 buttonClicked.setEnabled(false);
                 
                 buttonPressCount++;
-                
-                gameCheck(b11, b12, b13);
-                gameCheck(b21, b22, b23);
-                gameCheck(b31, b32, b33);
-                gameCheck(b11, b21, b31);
-                gameCheck(b12, b22, b32);
-                gameCheck(b13, b23, b33);
-                gameCheck(b11, b22, b33);
-                gameCheck(b13, b22, b31);
+               
+                computerPlay();
+                runAllGames();
                 
                  if(winCount == 0 && buttonPressCount == 9){
                          message.setText("Game Over: DRAW - No winner!!!");
                   }  
             }         
+        }
+        
+        private void computerPlay(){
+            for (int i=0; i<9; i++){
+                if (buttons[i].isEnabled()){
+                    buttons[i].setText("X");
+                    buttons[i].setEnabled(false);
+                    buttonPressCount++;
+                    break;
+                }
+            }
+        }
+        
+        private void runAllGames(){
+            gameCheck(b11, b12, b13);
+            gameCheck(b21, b22, b23);
+            gameCheck(b31, b32, b33);
+            gameCheck(b11, b21, b31);
+            gameCheck(b12, b22, b32);
+            gameCheck(b13, b23, b33);
+            gameCheck(b11, b22, b33);
+            gameCheck(b13, b22, b31);
         }
         
         private void gameCheck(JButton button1, JButton button2, JButton button3) {
