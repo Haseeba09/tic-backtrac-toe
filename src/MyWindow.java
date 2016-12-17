@@ -138,13 +138,14 @@ class ButtonObserver implements ActionListener {
                     
                     for(int i = 0; i<9; i++){
                        if(buttons[i].isEnabled()){
-                            pb.setCharAt(i, "X");
+                            
+                           pb.setCharAt(i, "O");
                         
                            if (pb.runWinScenarios()) {
+                               pb.setCharAt(i, "X");
                                buttons[i].setText("X");
                                lastPlayed = "X";
                                System.out.println(i);
-
                                buttons[i].setEnabled(false);
                                for (int i2 = 0; i2 < 9; i2++) {
                                    boardPositions[i2].setPlayedChar(buttons[i2].getText());
@@ -157,23 +158,45 @@ class ButtonObserver implements ActionListener {
                                return;
                             }
                            
+                           
+                           
+                           pb.setCharAt(i, "X");
+                        
+                           if (pb.runWinScenarios()) {
+                               buttons[i].setText("X");
+                               lastPlayed = "X";
+                               System.out.println(i);
+                               buttons[i].setEnabled(false);
+                               for (int i2 = 0; i2 < 9; i2++) {
+                                   boardPositions[i2].setPlayedChar(buttons[i2].getText());
+                                   gameBoard.setBoardPiece(boardPositions[i]);
+                               }
+                               buttonPressCount++;
+
+                               //   recursiveFunction(pb);
+                               gameCheck(gameBoard);
+                               return;
+                            }
+                           else{
+                               pb.setCharAt(i, " ");
+                           }
+                           
                        }
                     }
                   for (int i = 0; i < 9; i++) {
-                if (buttons[i].isEnabled()) {
-                    buttons[i].setText("X");
-                    lastPlayed = "X";
-
-                    buttons[i].setEnabled(false);
-                    for (int i2 = 0; i2 < 9; i2++) {
-                        boardPositions[i2].setPlayedChar(buttons[i2].getText());
-                        gameBoard.setBoardPiece(boardPositions[i]);
-                    }
-                    buttonPressCount++;
+                        if (buttons[i].isEnabled()) {
+                            buttons[i].setText("X");
+                            lastPlayed = "X";
+                            buttons[i].setEnabled(false);
+                            for (int i2 = 0; i2 < 9; i2++) {
+                                boardPositions[i2].setPlayedChar(buttons[i2].getText());
+                                gameBoard.setBoardPiece(boardPositions[i]);
+                            }
+                            buttonPressCount++;
 
                     //   recursiveFunction(pb);
-                    gameCheck(gameBoard);
-                    break;
+                            gameCheck(gameBoard);
+                            break;
                 }
 
             }
