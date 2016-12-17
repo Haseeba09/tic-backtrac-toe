@@ -18,7 +18,7 @@ public class Main {
         JFrame window = new MyWindow();
         window.setSize(500, 500);
         window.setLocation(100, 200);
-        window.setTitle("p2 Haseeb Amin");
+        window.setTitle("Tic Tac Toe");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setVisible(true);  
     }

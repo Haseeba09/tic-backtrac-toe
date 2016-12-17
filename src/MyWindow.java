@@ -20,7 +20,7 @@ class MyWindow extends JFrame {
        
     Font buttonFont = new Font("Courier New", Font.BOLD, 56);
     Font messageFont = new Font("Courier New", Font.BOLD, 18);
-    
+    private JButton newGameButton = new JButton();
     private  JButton[] buttons = new JButton[9];
     private BoardPosition[] boardPositions = new BoardPosition[9];
         
@@ -35,6 +35,9 @@ class MyWindow extends JFrame {
          JPanel panel = new JPanel(); 
         panel.setLayout(new GridLayout(3, 3)); 
         contentPane.add(panel, "Center");
+        
+        JPanel panel2 = new JPanel();
+        contentPane.add(panel2, "South");
         
         /*--------------------#
         |     0  |  1  |  2   |
@@ -80,6 +83,10 @@ class MyWindow extends JFrame {
             buttons[i].addActionListener(observer);
         }
         
+        newGameButton.setText("New Game");
+        newGameButton.addActionListener(observer);
+        panel2.add(newGameButton);
+        
         for(int i=0; i<9; i++){
             panel.add(buttons[i]);
         }       
@@ -93,7 +100,21 @@ class ButtonObserver implements ActionListener {
                
             for(int i=0; i<9; i++){
                 sourceCheck(source, buttons[i]);
-            }                       
+            }
+            
+            if(source == newGameButton){
+                System.out.println("HEY");
+                buttonPressCount = 0;
+                winCount = 0;
+                for(int i=0; i<9; i++){
+                    buttons[i].setEnabled(true);
+                    buttons[i].setText(" ");
+                    boardPositions[i].setPlayedChar(" ");
+                    gameBoard.setBoardPiece(boardPositions[i]);
+                }
+                lastPlayed = " ";
+                message.setText("Play Tic Tac Toe: O's Turn!");
+            }
         }
 
         private void sourceCheck(Object source, JButton buttonClicked){
@@ -136,8 +157,25 @@ class ButtonObserver implements ActionListener {
                     pb = gameBoard;
                     
                     for(int i = 0; i<9; i++){
-                       if(buttons[i].isEnabled()){
-                            
+                       
+                        if(buttons[i].isEnabled()){
+                            pb.setCharAt(i, "X");
+                        
+                           if (pb.runWinScenarios()) {
+                               buttons[i].setText("X");
+                               lastPlayed = "X";
+                               System.out.println(i);
+                               buttons[i].setEnabled(false);
+                               for (int i2 = 0; i2 < 9; i2++) {
+                                   boardPositions[i2].setPlayedChar(buttons[i2].getText());
+                                   gameBoard.setBoardPiece(boardPositions[i]);
+                               }
+                               buttonPressCount++;
+
+                               gameCheck(gameBoard);
+                               return;
+                            }
+                           
                            pb.setCharAt(i, "O");
                         
                            if (pb.runWinScenarios()) {
@@ -159,22 +197,7 @@ class ButtonObserver implements ActionListener {
                            
                            
                            
-                           pb.setCharAt(i, "X");
-                        
-                           if (pb.runWinScenarios()) {
-                               buttons[i].setText("X");
-                               lastPlayed = "X";
-                               System.out.println(i);
-                               buttons[i].setEnabled(false);
-                               for (int i2 = 0; i2 < 9; i2++) {
-                                   boardPositions[i2].setPlayedChar(buttons[i2].getText());
-                                   gameBoard.setBoardPiece(boardPositions[i]);
-                               }
-                               buttonPressCount++;
-
-                               gameCheck(gameBoard);
-                               return;
-                            }
+                           
                            else{
                                pb.setCharAt(i, " ");
                            }
