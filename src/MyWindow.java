@@ -152,22 +152,11 @@ class MyWindow extends JFrame {
                     pb = gameBoard;
                     //Special opening moves
                     if(buttonPressCount == 1){
-                        if((buttons[0].getText().equals("O") 
-                               || buttons[2].getText().equals("O")
-                               || buttons[6].getText().equals("O")
-                               || buttons[8].getText().equals("O"))){
-                            makePlayForX(4);
-                            return;
-                            
-                        }
-                        else if((buttons[5].getText().equals("O"))){
-                            makePlayForX(8);
-                            return;
-                        }
-                        else if((buttons[7].getText().equals("O"))){
-                            makePlayForX(8);
-                            return;
-                        }
+
+                          if(buttons[4].isEnabled()){
+                              makePlayForX(4);
+                              return;
+                          }
                     }
                     //special second moves
                     if(buttonPressCount == 3){
