@@ -42,7 +42,7 @@ class MyWindow extends JFrame {
         |     -------------   |
         |     3  |  4  |  5   |
         |     -------------   |
-        |     6  |  7  |  9   |
+        |     6  |  7  |  8   |
         |                     |
         |    Board Layout for |
         |    Reference.       |
@@ -133,20 +133,49 @@ class ButtonObserver implements ActionListener {
         }
         
         private void computerPlay(){
+                    PotentialBoard pb = new PotentialBoard();
+                    pb = gameBoard;
+                    
+                    for(int i = 0; i<9; i++){
+                       if(buttons[i].isEnabled()){
+                            pb.setCharAt(i, "X");
+                        
+                           if (pb.runWinScenarios()) {
+                               buttons[i].setText("X");
+                               lastPlayed = "X";
+                               System.out.println(i);
 
-            for (int i=0; i<9; i++){
-                if (buttons[i].isEnabled()){
+                               buttons[i].setEnabled(false);
+                               for (int i2 = 0; i2 < 9; i2++) {
+                                   boardPositions[i2].setPlayedChar(buttons[i2].getText());
+                                   gameBoard.setBoardPiece(boardPositions[i]);
+                               }
+                               buttonPressCount++;
+
+                               //   recursiveFunction(pb);
+                               gameCheck(gameBoard);
+                               return;
+                            }
+                           
+                       }
+                    }
+                  for (int i = 0; i < 9; i++) {
+                if (buttons[i].isEnabled()) {
                     buttons[i].setText("X");
                     lastPlayed = "X";
+
                     buttons[i].setEnabled(false);
-                    for(int i2=0; i2<9; i2++){
+                    for (int i2 = 0; i2 < 9; i2++) {
                         boardPositions[i2].setPlayedChar(buttons[i2].getText());
                         gameBoard.setBoardPiece(boardPositions[i]);
                     }
                     buttonPressCount++;
+
+                    //   recursiveFunction(pb);
                     gameCheck(gameBoard);
                     break;
                 }
+
             }
         }
         
@@ -161,7 +190,44 @@ class ButtonObserver implements ActionListener {
                 winCount++;
             }
         }
-        
-        
-    }    
+//      
+//        private PotentialBoard recursiveFunction(PotentialBoard pb){
+//            PotentialBoard newBoard = new PotentialBoard();
+//            newBoard = pb;
+//            String lastExperiment = lastPlayed;
+//            
+//            
+//            
+//            for (int i=0; i<9; i++){
+//                
+//                if (newBoard.getCharAt(i).equals(" ")){
+//                    if(lastExperiment.equals("X")){
+//                        newBoard.setCharAt(i, "O");
+//                        System.out.println("O");
+//                        lastExperiment = "O";
+//                    }
+//                    else if (lastExperiment.equals("O")){
+//                        newBoard.setCharAt(i, "X");
+//                        System.out.println("X");
+//                        lastExperiment = "X";
+//                    }
+//                    
+//                    break;
+//                }
+//                
+//            
+//            }
+//            if(newBoard.runWinScenarios()){
+//                    return newBoard;
+//                }
+//                else{
+//                   // recursiveFunction(newBoard);
+//                }
+//
+//            return newBoard;
+//        }
+
+    }
 }
+
+
