@@ -92,7 +92,7 @@ class MyWindow extends JFrame {
         }       
     }
 
-class ButtonObserver implements ActionListener {
+    class ButtonObserver implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent event) {
@@ -127,20 +127,15 @@ class ButtonObserver implements ActionListener {
               
                 buttonClicked.setEnabled(false);
                 
-                //int index;
                 
                 for(int i=0; i<9; i++){
                     boardPositions[i].setPlayedChar(buttons[i].getText());
                 }
                 
                 buttonPressCount++;
-               
-                
-                //runAllGames();
+
                 for(int i=0; i<9; i++){
-                    
                     gameBoard.setBoardPiece(boardPositions[i]);
-                    
                 }
                 gameCheck(gameBoard);
                 computerPlay();
@@ -155,234 +150,128 @@ class ButtonObserver implements ActionListener {
         private void computerPlay(){
                     PotentialBoard pb = new PotentialBoard();
                     pb = gameBoard;
-                    
+                    //Special opening moves
                     if(buttonPressCount == 1){
                         if((buttons[0].getText().equals("O") 
                                || buttons[2].getText().equals("O")
                                || buttons[6].getText().equals("O")
                                || buttons[8].getText().equals("O"))){
-                            if(buttons[4].isEnabled()){
-                               buttons[4].setText("X");
-                               lastPlayed = "X";
-                               System.out.println("A");
-                               buttons[4].setEnabled(false);
-                               for (int i2 = 0; i2 < 9; i2++) {
-                                   boardPositions[i2].setPlayedChar(buttons[i2].getText());
-                                   gameBoard.setBoardPiece(boardPositions[4]);
-                               }
-                               buttonPressCount++;
-                               message.setText("O's Turn!");
-
-
-                               gameCheck(gameBoard);
-                               return;
-                            }
+                            makePlayForX(4);
+                            return;
                             
                         }
                         else if((buttons[5].getText().equals("O"))){
-                            buttons[8].setText("X");
-                               lastPlayed = "X";
-                               System.out.println(4);
-                               buttons[8].setEnabled(false);
-                               for (int i2 = 0; i2 < 9; i2++) {
-                                   boardPositions[i2].setPlayedChar(buttons[i2].getText());
-                                   gameBoard.setBoardPiece(boardPositions[8]);
-                               }
-                               buttonPressCount++;
-                               message.setText("O's Turn!");
-
-                               gameCheck(gameBoard);
-                               return;
+                            makePlayForX(8);
+                            return;
                         }
                         else if((buttons[7].getText().equals("O"))){
-                            buttons[8].setText("X");
-                               lastPlayed = "X";
-                               System.out.println(4);
-                               buttons[8].setEnabled(false);
-                               for (int i2 = 0; i2 < 9; i2++) {
-                                   boardPositions[i2].setPlayedChar(buttons[i2].getText());
-                                   gameBoard.setBoardPiece(boardPositions[8]);
-                               }
-                               buttonPressCount++;
-                               message.setText("O's Turn!");
-
-                               gameCheck(gameBoard);
-                               return;
+                            makePlayForX(8);
+                            return;
                         }
                     }
+                    //special second moves
                     if(buttonPressCount == 3){
                         if((buttons[2].getText().equals("O")) 
                                && (buttons[6].getText().equals("O"))){
-                                    if(buttons[7].isEnabled()){
-                                        buttons[7].setText("X");
-                                        lastPlayed = "X";
-                                        System.out.println("L");
-                                        buttons[7].setEnabled(false);
-                                        for (int i2 = 0; i2 < 9; i2++) {
-                                            boardPositions[i2].setPlayedChar(buttons[i2].getText());
-                                            gameBoard.setBoardPiece(boardPositions[7]);
-                                        }
-                                        buttonPressCount++;
-                                        message.setText("O's Turn!");
-
-                                        gameCheck(gameBoard);
-                                        return;
-                                    }
+                            
+                            makePlayForX(7);
+                            return;
                         }
                         else if ((buttons[4].getText().equals("O"))
                                 && (buttons[8].getText().equals("O"))){
-                            if(buttons[6].isEnabled()){
-                                        buttons[6].setText("X");
-                                        lastPlayed = "X";
-                                        System.out.println("!");
-                                        buttons[6].setEnabled(false);
-                                        for (int i2 = 0; i2 < 9; i2++) {
-                                            boardPositions[i2].setPlayedChar(buttons[i2].getText());
-                                            gameBoard.setBoardPiece(boardPositions[6]);
-                                        }
-                                        buttonPressCount++;
-                                        message.setText("O's Turn!");
-
-                                        gameCheck(gameBoard);
-                                        return;
-                                    }
+                            
+                               makePlayForX(6);
+                               return;
                         }
                         else if ((buttons[2].getText().equals("O")) &&
                                 (buttons[5].getText().equals("O"))){
-                            if(buttons[7].isEnabled()){
-                                        buttons[7].setText("X");
-                                        lastPlayed = "X";
-                                        System.out.println(4);
-                                        buttons[7].setEnabled(false);
-                                        for (int i2 = 0; i2 < 9; i2++) {
-                                            boardPositions[i2].setPlayedChar(buttons[i2].getText());
-                                            gameBoard.setBoardPiece(boardPositions[7]);
-                                        }
-                                        buttonPressCount++;
-                                        message.setText("O's Turn!");
-
-                                        gameCheck(gameBoard);
-                                        return;
-                                    }
+                            
+                                makePlayForX(7);
+                                return;
+                        }
+                         else if ((buttons[1].getText().equals("O")) &&
+                                (buttons[5].getText().equals("O"))){
+                            
+                                makePlayForX(6);
+                                return;
                         }
                         else if ((buttons[7].getText().equals("O")) &&
-                                (buttons[6].getText().equals("O"))){
-                            if(buttons[3].isEnabled()){
-                                        buttons[3].setText("X");
-                                        lastPlayed = "X";
-                                        System.out.println(88);
-                                        buttons[3].setEnabled(false);
-                                        for (int i2 = 0; i2 < 9; i2++) {
-                                            boardPositions[i2].setPlayedChar(buttons[i2].getText());
-                                            gameBoard.setBoardPiece(boardPositions[3]);
-                                        }
-                                        buttonPressCount++;
-                                        message.setText("O's Turn!");
-
-                                        gameCheck(gameBoard);
-                                        return;
-                                    }
+                                (buttons[5].getText().equals("O"))){
+                                
+                                makePlayForX(3);
+                                return;
                         }
                     }
-                    
+                    //see if there is anywhere x wins
                     for(int i = 0; i<9; i++){
                        
                         if(buttons[i].isEnabled()){
                             pb.setCharAt(i, "X");
                         
                            if (pb.runWinScenarios()) {
-                               buttons[i].setText("X");
-                               lastPlayed = "X";
-                               System.out.println(i);
-                               buttons[i].setEnabled(false);
-                               for (int i2 = 0; i2 < 9; i2++) {
-                                   boardPositions[i2].setPlayedChar(buttons[i2].getText());
-                                   gameBoard.setBoardPiece(boardPositions[i]);
-                               }
-                               buttonPressCount++;
-                               message.setText("O's Turn!");
-
-                               gameCheck(gameBoard);
+                               makePlayForX(i);
                                return;
-                            }
-                           
-                           pb.setCharAt(i, "O");
-                        
-                           if (pb.runWinScenarios()) {
-                               pb.setCharAt(i, "X");
-                               buttons[i].setText("X");
-                               lastPlayed = "X";
-                               System.out.println(i);
-                               buttons[i].setEnabled(false);
-                               for (int i2 = 0; i2 < 9; i2++) {
-                                   boardPositions[i2].setPlayedChar(buttons[i2].getText());
-                                   gameBoard.setBoardPiece(boardPositions[i]);
-                               }
-                               buttonPressCount++;
-                               message.setText("O's Turn!");
 
-                               gameCheck(gameBoard);
-                               return;
                             }
-                           
-                           
-                           
-                           
                            else{
                                pb.setCharAt(i, " ");
                            }
-                           
-                       }
+                        }
                     }
+                    //see if there is anywhere o wins
+                    for(int i = 0; i<9; i++){
+                        if(buttons[i].isEnabled()){
+                           pb.setCharAt(i, "O");
+                        
+                           if (pb.runWinScenarios()) {
+                               makePlayForX(i);
+                               return;
+
+                            }
+                            else{
+                               pb.setCharAt(i, " ");
+                           }
+                        }
+                    }
+                    //if nothing else, place in next available
                   for (int i = 0; i < 9; i++) {
                         if (buttons[i].isEnabled()) {
-                            buttons[i].setText("X");
-                            lastPlayed = "X";
-                            buttons[i].setEnabled(false);
-                            for (int i2 = 0; i2 < 9; i2++) {
-                                boardPositions[i2].setPlayedChar(buttons[i2].getText());
-                                gameBoard.setBoardPiece(boardPositions[i]);
-                            }
-                            buttonPressCount++;
-                            message.setText("O's Turn!");
-
-                            gameCheck(gameBoard);
+                            makePlayForX(i);
                             break;
                 }
 
             }
         }
+    }
+
+    private void makePlayForX(int index){
+        if (buttons[index].isEnabled()) {
+                        buttons[index].setText("X");
+                        lastPlayed = "X";
+                        buttons[index].setEnabled(false);
+                        for (int i2 = 0; i2 < 9; i2++) {
+                            boardPositions[i2].setPlayedChar(buttons[i2].getText());
+                            gameBoard.setBoardPiece(boardPositions[index]);
+                        }
+                        buttonPressCount++;
+                        message.setText("O's Turn!");
+
+                        gameCheck(gameBoard);
         }
-
-        private void makePlayForX(int index){
-            if (buttons[index].isEnabled()) {
-                            buttons[index].setText("X");
-                            lastPlayed = "X";
-                            buttons[index].setEnabled(false);
-                            for (int i2 = 0; i2 < 9; i2++) {
-                                boardPositions[i2].setPlayedChar(buttons[i2].getText());
-                                gameBoard.setBoardPiece(boardPositions[index]);
-                            }
-                            buttonPressCount++;
-                            message.setText("O's Turn!");
-
-                            gameCheck(gameBoard);
-            }
                             
-        }
+    }
 
-        private void gameCheck(PotentialBoard pb){
-            if(pb.runWinScenarios()){
-                 message.setText("Game Over: Winner is " +  lastPlayed+  "!");
+    private void gameCheck(PotentialBoard pb){
+        if(pb.runWinScenarios()){
+            message.setText("Game Over: Winner is " +  lastPlayed+  "!");
                 
-                for(int i=0; i<9; i++){
-                    buttons[i].setEnabled(false);
-                }
-                
-                winCount++;
+            for(int i=0; i<9; i++){
+                buttons[i].setEnabled(false);
             }
+                
+            winCount++;
         }
-
+    }
 }
 
 
