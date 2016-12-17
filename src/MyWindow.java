@@ -157,25 +157,29 @@ class ButtonObserver implements ActionListener {
                     pb = gameBoard;
                     
                     if(buttonPressCount == 1){
-                        if(!(buttons[0].isEnabled() 
-                               && buttons[2].isEnabled()
-                               && buttons[6].isEnabled()
-                               && buttons[8].isEnabled())){
-                            buttons[4].setText("X");
+                        if((buttons[0].getText().equals("O") 
+                               || buttons[2].getText().equals("O")
+                               || buttons[6].getText().equals("O")
+                               || buttons[8].getText().equals("O"))){
+                            if(buttons[4].isEnabled()){
+                               buttons[4].setText("X");
                                lastPlayed = "X";
-                               System.out.println(4);
+                               System.out.println("A");
                                buttons[4].setEnabled(false);
                                for (int i2 = 0; i2 < 9; i2++) {
                                    boardPositions[i2].setPlayedChar(buttons[i2].getText());
                                    gameBoard.setBoardPiece(boardPositions[4]);
                                }
                                buttonPressCount++;
+                               message.setText("O's Turn!");
+
 
                                gameCheck(gameBoard);
                                return;
+                            }
                             
                         }
-                        else if(!(buttons[5].isEnabled())){
+                        else if((buttons[5].getText().equals("O"))){
                             buttons[8].setText("X");
                                lastPlayed = "X";
                                System.out.println(4);
@@ -185,11 +189,12 @@ class ButtonObserver implements ActionListener {
                                    gameBoard.setBoardPiece(boardPositions[8]);
                                }
                                buttonPressCount++;
+                               message.setText("O's Turn!");
 
                                gameCheck(gameBoard);
                                return;
                         }
-                        else if(!(buttons[7].isEnabled())){
+                        else if((buttons[7].getText().equals("O"))){
                             buttons[8].setText("X");
                                lastPlayed = "X";
                                System.out.println(4);
@@ -199,48 +204,51 @@ class ButtonObserver implements ActionListener {
                                    gameBoard.setBoardPiece(boardPositions[8]);
                                }
                                buttonPressCount++;
+                               message.setText("O's Turn!");
 
                                gameCheck(gameBoard);
                                return;
                         }
                     }
                     if(buttonPressCount == 3){
-                        if(!(buttons[2].isEnabled()) 
-                               && !(buttons[6].isEnabled())){
+                        if((buttons[2].getText().equals("O")) 
+                               && (buttons[6].getText().equals("O"))){
                                     if(buttons[7].isEnabled()){
                                         buttons[7].setText("X");
                                         lastPlayed = "X";
-                                        System.out.println(4);
+                                        System.out.println("L");
                                         buttons[7].setEnabled(false);
                                         for (int i2 = 0; i2 < 9; i2++) {
                                             boardPositions[i2].setPlayedChar(buttons[i2].getText());
                                             gameBoard.setBoardPiece(boardPositions[7]);
                                         }
                                         buttonPressCount++;
+                                        message.setText("O's Turn!");
 
                                         gameCheck(gameBoard);
                                         return;
                                     }
                         }
-                        else if (!(buttons[4].isEnabled())
-                                && !(buttons[8].isEnabled())){
+                        else if ((buttons[4].getText().equals("O"))
+                                && (buttons[8].getText().equals("O"))){
                             if(buttons[6].isEnabled()){
                                         buttons[6].setText("X");
                                         lastPlayed = "X";
-                                        System.out.println(4);
+                                        System.out.println("!");
                                         buttons[6].setEnabled(false);
                                         for (int i2 = 0; i2 < 9; i2++) {
                                             boardPositions[i2].setPlayedChar(buttons[i2].getText());
                                             gameBoard.setBoardPiece(boardPositions[6]);
                                         }
                                         buttonPressCount++;
+                                        message.setText("O's Turn!");
 
                                         gameCheck(gameBoard);
                                         return;
                                     }
                         }
-                        else if (!(buttons[2].isEnabled()) &&
-                                !(buttons[5].isEnabled())){
+                        else if ((buttons[2].getText().equals("O")) &&
+                                (buttons[5].getText().equals("O"))){
                             if(buttons[7].isEnabled()){
                                         buttons[7].setText("X");
                                         lastPlayed = "X";
@@ -251,23 +259,25 @@ class ButtonObserver implements ActionListener {
                                             gameBoard.setBoardPiece(boardPositions[7]);
                                         }
                                         buttonPressCount++;
+                                        message.setText("O's Turn!");
 
                                         gameCheck(gameBoard);
                                         return;
                                     }
                         }
-                        else if (!(buttons[7].isEnabled()) &&
-                                !(buttons[6].isEnabled())){
+                        else if ((buttons[7].getText().equals("O")) &&
+                                (buttons[6].getText().equals("O"))){
                             if(buttons[3].isEnabled()){
                                         buttons[3].setText("X");
                                         lastPlayed = "X";
-                                        System.out.println(4);
+                                        System.out.println(88);
                                         buttons[3].setEnabled(false);
                                         for (int i2 = 0; i2 < 9; i2++) {
                                             boardPositions[i2].setPlayedChar(buttons[i2].getText());
                                             gameBoard.setBoardPiece(boardPositions[3]);
                                         }
                                         buttonPressCount++;
+                                        message.setText("O's Turn!");
 
                                         gameCheck(gameBoard);
                                         return;
@@ -290,6 +300,7 @@ class ButtonObserver implements ActionListener {
                                    gameBoard.setBoardPiece(boardPositions[i]);
                                }
                                buttonPressCount++;
+                               message.setText("O's Turn!");
 
                                gameCheck(gameBoard);
                                return;
@@ -308,6 +319,7 @@ class ButtonObserver implements ActionListener {
                                    gameBoard.setBoardPiece(boardPositions[i]);
                                }
                                buttonPressCount++;
+                               message.setText("O's Turn!");
 
                                gameCheck(gameBoard);
                                return;
@@ -332,6 +344,7 @@ class ButtonObserver implements ActionListener {
                                 gameBoard.setBoardPiece(boardPositions[i]);
                             }
                             buttonPressCount++;
+                            message.setText("O's Turn!");
 
                             gameCheck(gameBoard);
                             break;
@@ -340,6 +353,24 @@ class ButtonObserver implements ActionListener {
             }
         }
         }
+
+        private void makePlayForX(int index){
+            if (buttons[index].isEnabled()) {
+                            buttons[index].setText("X");
+                            lastPlayed = "X";
+                            buttons[index].setEnabled(false);
+                            for (int i2 = 0; i2 < 9; i2++) {
+                                boardPositions[i2].setPlayedChar(buttons[i2].getText());
+                                gameBoard.setBoardPiece(boardPositions[index]);
+                            }
+                            buttonPressCount++;
+                            message.setText("O's Turn!");
+
+                            gameCheck(gameBoard);
+            }
+                            
+        }
+
         private void gameCheck(PotentialBoard pb){
             if(pb.runWinScenarios()){
                  message.setText("Game Over: Winner is " +  lastPlayed+  "!");
