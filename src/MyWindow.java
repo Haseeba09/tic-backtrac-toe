@@ -156,6 +156,125 @@ class ButtonObserver implements ActionListener {
                     PotentialBoard pb = new PotentialBoard();
                     pb = gameBoard;
                     
+                    if(buttonPressCount == 1){
+                        if(!(buttons[0].isEnabled() 
+                               && buttons[2].isEnabled()
+                               && buttons[6].isEnabled()
+                               && buttons[8].isEnabled())){
+                            buttons[4].setText("X");
+                               lastPlayed = "X";
+                               System.out.println(4);
+                               buttons[4].setEnabled(false);
+                               for (int i2 = 0; i2 < 9; i2++) {
+                                   boardPositions[i2].setPlayedChar(buttons[i2].getText());
+                                   gameBoard.setBoardPiece(boardPositions[4]);
+                               }
+                               buttonPressCount++;
+
+                               gameCheck(gameBoard);
+                               return;
+                            
+                        }
+                        else if(!(buttons[5].isEnabled())){
+                            buttons[8].setText("X");
+                               lastPlayed = "X";
+                               System.out.println(4);
+                               buttons[8].setEnabled(false);
+                               for (int i2 = 0; i2 < 9; i2++) {
+                                   boardPositions[i2].setPlayedChar(buttons[i2].getText());
+                                   gameBoard.setBoardPiece(boardPositions[8]);
+                               }
+                               buttonPressCount++;
+
+                               gameCheck(gameBoard);
+                               return;
+                        }
+                        else if(!(buttons[7].isEnabled())){
+                            buttons[8].setText("X");
+                               lastPlayed = "X";
+                               System.out.println(4);
+                               buttons[8].setEnabled(false);
+                               for (int i2 = 0; i2 < 9; i2++) {
+                                   boardPositions[i2].setPlayedChar(buttons[i2].getText());
+                                   gameBoard.setBoardPiece(boardPositions[8]);
+                               }
+                               buttonPressCount++;
+
+                               gameCheck(gameBoard);
+                               return;
+                        }
+                    }
+                    if(buttonPressCount == 3){
+                        if(!(buttons[2].isEnabled()) 
+                               && !(buttons[6].isEnabled())){
+                                    if(buttons[7].isEnabled()){
+                                        buttons[7].setText("X");
+                                        lastPlayed = "X";
+                                        System.out.println(4);
+                                        buttons[7].setEnabled(false);
+                                        for (int i2 = 0; i2 < 9; i2++) {
+                                            boardPositions[i2].setPlayedChar(buttons[i2].getText());
+                                            gameBoard.setBoardPiece(boardPositions[7]);
+                                        }
+                                        buttonPressCount++;
+
+                                        gameCheck(gameBoard);
+                                        return;
+                                    }
+                        }
+                        else if (!(buttons[4].isEnabled())
+                                && !(buttons[8].isEnabled())){
+                            if(buttons[6].isEnabled()){
+                                        buttons[6].setText("X");
+                                        lastPlayed = "X";
+                                        System.out.println(4);
+                                        buttons[6].setEnabled(false);
+                                        for (int i2 = 0; i2 < 9; i2++) {
+                                            boardPositions[i2].setPlayedChar(buttons[i2].getText());
+                                            gameBoard.setBoardPiece(boardPositions[6]);
+                                        }
+                                        buttonPressCount++;
+
+                                        gameCheck(gameBoard);
+                                        return;
+                                    }
+                        }
+                        else if (!(buttons[2].isEnabled()) &&
+                                !(buttons[5].isEnabled())){
+                            if(buttons[7].isEnabled()){
+                                        buttons[7].setText("X");
+                                        lastPlayed = "X";
+                                        System.out.println(4);
+                                        buttons[7].setEnabled(false);
+                                        for (int i2 = 0; i2 < 9; i2++) {
+                                            boardPositions[i2].setPlayedChar(buttons[i2].getText());
+                                            gameBoard.setBoardPiece(boardPositions[7]);
+                                        }
+                                        buttonPressCount++;
+
+                                        gameCheck(gameBoard);
+                                        return;
+                                    }
+                        }
+                        else if (!(buttons[7].isEnabled()) &&
+                                !(buttons[6].isEnabled())){
+                            if(buttons[3].isEnabled()){
+                                        buttons[3].setText("X");
+                                        lastPlayed = "X";
+                                        System.out.println(4);
+                                        buttons[3].setEnabled(false);
+                                        for (int i2 = 0; i2 < 9; i2++) {
+                                            boardPositions[i2].setPlayedChar(buttons[i2].getText());
+                                            gameBoard.setBoardPiece(boardPositions[3]);
+                                        }
+                                        buttonPressCount++;
+
+                                        gameCheck(gameBoard);
+                                        return;
+                                    }
+                        }
+                    }
+                    
                     for(int i = 0; i<9; i++){
                        
                         if(buttons[i].isEnabled()){
@@ -190,7 +309,6 @@ class ButtonObserver implements ActionListener {
                                }
                                buttonPressCount++;
 
-                               //   recursiveFunction(pb);
                                gameCheck(gameBoard);
                                return;
                             }
@@ -221,7 +339,7 @@ class ButtonObserver implements ActionListener {
 
             }
         }
-        
+        }
         private void gameCheck(PotentialBoard pb){
             if(pb.runWinScenarios()){
                  message.setText("Game Over: Winner is " +  lastPlayed+  "!");
@@ -234,7 +352,6 @@ class ButtonObserver implements ActionListener {
             }
         }
 
-    }
 }
 
 
