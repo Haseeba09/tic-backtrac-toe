@@ -12,7 +12,6 @@ import javax.swing.JTextField;
 class MyWindow extends JFrame {
     
     private JTextField message;
-    private JButton b11, b12, b13, b21, b22, b23,b31,b32,b33;
     private PotentialBoard gameBoard;
     
     private String lastPlayed;
@@ -49,14 +48,14 @@ class MyWindow extends JFrame {
         #--------------------*/
         
         buttons[0] = new JButton(" ");
-        buttons[1] = b12 = new JButton(" ");
-        buttons[2] = b13 = new JButton(" ");
-        buttons[3] = b21 = new JButton(" ");
-        buttons[4] = b22 = new JButton(" ");
-        buttons[5] = b23 = new JButton(" ");
-        buttons[6] = b31 = new JButton(" ");
-        buttons[7] = b32 = new JButton(" ");
-        buttons[8] = b33 = new JButton(" ");
+        buttons[1] = new JButton(" ");
+        buttons[2] = new JButton(" ");
+        buttons[3] = new JButton(" ");
+        buttons[4] = new JButton(" ");
+        buttons[5] = new JButton(" ");
+        buttons[6] = new JButton(" ");
+        buttons[7] = new JButton(" ");
+        buttons[8] = new JButton(" ");
         
         boardPositions[0] = new BoardPosition(" ",11);
         boardPositions[1] = new BoardPosition(" ",12);
@@ -173,7 +172,6 @@ class ButtonObserver implements ActionListener {
                                }
                                buttonPressCount++;
 
-                               //   recursiveFunction(pb);
                                gameCheck(gameBoard);
                                return;
                             }
@@ -194,7 +192,6 @@ class ButtonObserver implements ActionListener {
                             }
                             buttonPressCount++;
 
-                    //   recursiveFunction(pb);
                             gameCheck(gameBoard);
                             break;
                 }
@@ -213,42 +210,6 @@ class ButtonObserver implements ActionListener {
                 winCount++;
             }
         }
-//      
-//        private PotentialBoard recursiveFunction(PotentialBoard pb){
-//            PotentialBoard newBoard = new PotentialBoard();
-//            newBoard = pb;
-//            String lastExperiment = lastPlayed;
-//            
-//            
-//            
-//            for (int i=0; i<9; i++){
-//                
-//                if (newBoard.getCharAt(i).equals(" ")){
-//                    if(lastExperiment.equals("X")){
-//                        newBoard.setCharAt(i, "O");
-//                        System.out.println("O");
-//                        lastExperiment = "O";
-//                    }
-//                    else if (lastExperiment.equals("O")){
-//                        newBoard.setCharAt(i, "X");
-//                        System.out.println("X");
-//                        lastExperiment = "X";
-//                    }
-//                    
-//                    break;
-//                }
-//                
-//            
-//            }
-//            if(newBoard.runWinScenarios()){
-//                    return newBoard;
-//                }
-//                else{
-//                   // recursiveFunction(newBoard);
-//                }
-//
-//            return newBoard;
-//        }
 
     }
 }
